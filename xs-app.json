@@ -1,0 +1,72 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/resources/(.*)$",
+      "target": "/resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^/test-resources/(.*)$",
+      "target": "/test-resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^/ccep_api/(.*)$",
+      "target": "/$1",
+      "destination": "ccep_drdtofsdagentfollow",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/fsd_gen_api/(.*)$",
+      "target": "/$1",
+      "destination": "ccep_drdtofsdagent",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/tsd_api/(.*)$",
+      "target": "/$1",
+      "destination": "ccep_fsdtotsdagenticcustom2",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/cleancore_api/(.*)$",
+      "target": "/$1",
+      "destination": "ccep_instructions",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/standard_api/(.*)$",
+      "target": "/$1",
+      "destination": "ccep_standardsections",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/tsd_base_api/(.*)$",
+      "target": "/$1",
+      "destination": "ccep_fsdtotsd",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}
+
+
+
+
+
+

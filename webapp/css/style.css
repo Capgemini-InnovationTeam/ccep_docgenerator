@@ -1,0 +1,453 @@
+.sapMIBar-CTX .sapMBtnInner,
+.sapMBar .sapMBtnInner,
+.sapMHeader-CTX .sapMBtnInner,
+.sapMFooter-CTX .sapMBtnInner {
+    /* background: #0a303d; */
+    background-color: #0040B0;
+    border-color: transparent;
+}
+.image-left {
+    width: 150px; /* Match the image width */
+    height: 150px; /* Adjust height to fit the logo */
+    background-image: url("images/whitelogocg.png");
+    background-size: contain; /* Ensure the image scales while maintaining aspect ratio */
+    background-repeat: no-repeat;
+    background-position: center; /* Center the image */
+}
+span.sapMBtnInner.sapMBtnEmphasized {
+    background-image: none;
+    /*background-color: #6618ae;*/
+    /* background-color: #0a303d; */
+    background-color: #0040B0 !important;
+    border-color: #0057CC !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 6px rgba(0, 112, 242, 0.25) !important;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+    color: #fff;
+    text-shadow: 0 0 .125rem transparent;
+    /*box-shadow: 2px 6px #ae90c8;*/
+    /*box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;*/
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    font-size: 13px;
+}
+ 
+.sapMBtn:hover>.sapMBtnHoverable.sapMBtnEmphasized:not(.sapMBtnActive):not(.sapMToggleBtnPressed) {
+    /*background-color: #c031a0;*/
+    /* background-color: #08525a; */
+    background-color: #0040B0;
+    /*border-color: #0064d9;*/
+    border-color: #000;
+    color: #eaecee;
+}
+ 
+.sapMBtnInner {
+    vertical-align: top;
+    -webkit-appearance: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    box-sizing: border-box;
+    font-family: "72", "72full", Arial, Helvetica, sans-serif;
+    font-size: 0.875rem;
+    height: 2.5rem;
+    min-width: 2.500rem;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    /* background-color: #0a303d; */
+    /* background-color: #0040B0; */
+ 
+    /* border-color: #418ac7;
+    border-radius: 0.2rem;
+    color: #fff;
+    text-shadow: 0 0 .125rem transparent; */
+    background-color: #0040B0 !important;
+    border-color: #0057CC !important;
+    border-radius: 6px !important;
+    color: #ffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 6px rgba(0, 112, 242, 0.25) !important;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+ 
+.sapMBtnIcon {
+    font-size: 1.375rem;
+    line-height: 2.375rem;
+    width: 2.375rem;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    max-height: 2.375rem;
+    color: #fff;
+}
+ 
+.sapMBtnIcon.sapUiIcon {
+    font-size: 1.375rem;
+    line-height: 2.375rem;
+    width: 2.375rem;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    max-height: 2.375rem;
+    color: #ffff !important;
+}
+ 
+ 
+.buttons {
+    transition: transform 0.3s ease-in-out;
+}
+.xSmallFontSize {
+    font-size: smaller;
+}
+ 
+.customHeight {
+    height: 70px !important; /* Fixes the height of the TextArea */
+    overflow-y: auto; /* Enables vertical scrolling */
+    word-wrap: break-word; /* Ensures long words break and wrap within the container */
+    overflow-x: auto; /* Hides horizontal scrolling (optional, for better appearance) */
+}
+.customVBoxHeight {
+    height: 500px; /* Adjust the height as needed */
+    overflow: auto; /* Add scrollbars if content overflows */
+}
+ 
+#id_FSDprompt {
+    height: 200px !important; /* Set the height of the enter prompt text area */
+  }
+ 
+ 
+.customWideComboBox {
+   
+    width: 476px !important;
+ 
+}
+.customLargeMarginBegin {
+    margin-left: 370px;  /* Adjust this value to your desired margin */
+}
+.sapMSliderHandle {
+    margin-top: 8px;
+    margin-left: -1rem;
+    top: -0.875rem;
+    height: 1rem;
+    width: 1rem;
+    direction: ltr;
+    cursor: pointer;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem
+}
+.buttons:hover {
+    transform: translateY(-3px);
+}
+ 
+.buttons:active {
+    transform: translateY(-3px) scale(1.2);
+}
+ 
+.customColor span.sapMBtnInner.sapMBtnEmphasized {
+    background-color: #0e7c6c;
+    transition: width 2s, height 4s;
+}
+/* Custom CSS for List inside the Dialog */
+/*#promptParameter2 .sapMList {*/
+/*    padding: 1rem;*/
+    /* background-color: #f9f9f9; Light background for the list */
+/*    border-radius: 8px;*/
+/*}*/
+ 
+/*#promptParameter2 .sapMStdListItem {*/
+/*    padding: 0.5rem 1rem;*/
+    /* border-bottom: 1px solid #e0e0e0; Subtle divider for list items */
+/*}*/
+ 
+/*#promptParameter2 .sapMStdListItemTitle {*/
+/*    font-weight: bold;*/
+/*}*/
+ 
+/*#promptParameter2 .sapMStdListItemDescription {*/
+    /* color: #2f3c48; Muted color for descriptions */
+/*}*/
+ 
+ 
+.login-container {
+    width: 100%;
+}
+ 
+.welcome-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 20px; /* Space between the text and login box */
+}
+ 
+.login-box {
+    max-width: 400px;
+}
+.bold-text {
+    font-weight: bold;
+}
+.cardCustomBackground {
+    background-color: #d2d5d7 !important;
+}
+.largeText {
+       font-size: 1.00rem !important;
+}
+.headingStyle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+ 
+.subheadingStyle {
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 10px;
+    color:#000;
+}
+.sapMWizardStep .sapMWizardStepTitle {
+    font-size: .00rem;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    /*visibility: collapse;*/
+}
+/*.card .sapMText {*/
+/*    display: inline-block;*/
+/*    box-sizing: border-box;*/
+/*    white-space: pre-line;*/
+/*    word-wrap: break-word;*/
+/*    cursor: text;*/
+/*    font-size: 1.00rem;*/
+/*    font-family: "72", "72full", Arial, Helvetica, sans-serif;*/
+/*    line-height: normal;*/
+/*    color: #333;*/
+/*}*/
+.vBoxBorder {
+    /*border: 6px solid #3f5161; */
+    /*border-radius: 8px;*/
+    /*padding: 16px; */
+    /*margin: 16px; */
+    margin-left: 80px;
+     margin-right: 50px;
+}
+/* Add consistent spacing */
+.sapUiContentPadding {
+    padding: 1.5rem;
+}
+ 
+/* Add margin between form elements */
+.sapUiTinyMarginBottom {
+    margin-bottom: 1rem;
+}
+ 
+.sapUiTinyMarginTop {
+    margin-top: 0.5rem;
+}
+ 
+/* Align labels and inputs better */
+label {
+    font-weight: bold;
+ 
+border-radius: 8px;
+    margin-top: 15px;
+ 
+}
+.label2{
+    font-weight: bold;
+ border-radius: 8px;
+    margin-top: 20px;
+}
+ 
+/* FileUploader Styling */
+#fileUploader {
+    border-radius: 4px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+}
+ 
+/* Dialog Styling */
+#feedbackDialog {
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+ 
+/* Improve Button Spacing */
+sap.m.Button {
+    margin: 0.5rem;
+}
+.feedback2 .sapMSlt {
+    border: 1.5px solid;
+    border-radius: 6px;
+}
+.feedback .sapMSltMinWidth {
+    min-width: 18.125rem;
+   
+    width: 100%;
+   
+}
+/*.feedback3.sapMInputBase:not(.sapMInputBaseHasEndIcons):not(.sapMInputBaseHasBeginIcons) .sapMInputBaseInner, .sapMInputBaseNoWidth .sapMInputBaseInner {*/
+/*   border: 1.5px solid;*/
+/*}*/
+.feedback .sapMInputBase:not(.sapMInputBaseHasEndIcons):not(.sapMInputBaseHasBeginIcons) .sapMInputBaseContentWrapper {
+    min-width: 29.13rem;
+     border: 1.5px solid;
+    /*border-radius: 6px;*/
+}
+.marginleftlabel{
+    margin-left:15px;
+}
+ 
+.sapMDialog>header .sapMDialogTitleGroup .sapMTitle {
+    color: #000;
+    vertical-align: middle;
+}
+ 
+ 
+/* Wizard Step 1 */
+/* ── Upload drop zone card ── */
+.uploadCardBox {
+    border: 2px dashed var(--sapButton_Emphasized_BorderColor, #0070f2);
+    border-radius: 10px;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(145deg, #f0f7ff 0%, #fafcff 100%);
+    min-height: 200px;
+    text-align: center;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    cursor: default;
+}
+ 
+.uploadCardBox:hover {
+    background-color: #D6EAF8;        /* slightly deeper on hover */
+}
+ 
+ 
+.uploadCardBox:hover .dropZoneIcon {
+    transform: translateY(-4px);
+    opacity: 1;
+}
+/* ── Upload hint text ── */
+.uploadHintText {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #32363A;                   /* SAP dark grey */
+}
+ 
+.uploadSubText {
+    font-size: 0.78rem;
+    color: #6A7175;                   /* SAP muted grey */
+}
+ 
+/* ── Generate button sizing ── */
+.generateBtn {
+    min-width: 220px;
+    font-size: 1rem !important;
+    padding: 0.6rem 1.5rem !important;
+}
+ 
+/* ── Nudge row text ── */
+.nudgeText {
+    font-size: 0.82rem;
+    color: #6A7175;
+}
+ 
+ 
+/* Wizard step 2  */
+/* Step header strip */
+.stepHeaderBox {
+    border-left: 4px solid #0040B0;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+ 
+.stepSubText {
+    font-size: 0.82rem;
+    color: #6A7175;
+    margin-top: 0.2rem;
+}
+ 
+/* AI Configuration toolbar row */
+.toolbarRow {
+    background-color: #F5F6F7;
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 0.75rem;
+}
+ 
+.toolbarLabel {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #32363A;
+}
+ 
+.toolbarIcon {
+    color: #0040B0;
+    font-size: 1rem !important;
+}
+ 
+ 
+ 
+/* ====================
+*/
+/* ════════════════════════════════════════════════
+   WIZARD BUTTONS (Next, Back, Review)
+════════════════════════════════════════════════ */
+ 
+/* Next Step button */
+.sapMWizardNextButton.sapMBtn .sapMBtnInner {
+    background-color: #0040B0 !important;
+    border-color: #0057CC !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    min-width: 120px !important;
+    box-shadow: 0 2px 6px rgba(0, 112, 242, 0.25) !important;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.sapMWizardNextButton.sapMBtn:hover .sapMBtnInner {
+    background-color: #0057CC !important;
+    box-shadow: 0 4px 10px rgba(0, 112, 242, 0.3) !important;
+}
+ 
+/* Wizard step icons — active */
+.sapMWizardStep .sapMWizardProgressNavStepIconActive {
+    background-color: #0040B0 !important;
+    border-color: #0040B0 !important;
+}
+ 
+/* Wizard step icons — visited/completed */
+.sapMWizardProgressNavStepIconVisited {
+    background-color: #107E3E !important;
+    border-color: #107E3E !important;
+}
+ 
+/* Wizard step connector line */
+.sapMWizardProgressNavStepConnector {
+    border-color: #C0C0C0 !important;
+}
+.sapMWizardProgressNavStepConnectorActive {
+    border-color: #0040B0 !important;
+}
+ 
+/* Wizard step title — active */
+.sapMWizardProgressNavStepTitleActive {
+    color: #0040B0 !important;
+    font-weight: 600 !important;
+}
+ 
+.dropZoneIcon {
+    color: var(--sapButton_Emphasized_Background, #0070f2) !important;
+    opacity: 0.85;
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
+}
+ 
+.dropZone:hover .dropZoneIcon {
+    transform: translateY(-4px) !important;
+    opacity: 1;
+}
+ 

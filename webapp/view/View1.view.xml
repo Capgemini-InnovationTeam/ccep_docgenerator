@@ -1,0 +1,290 @@
+<mvc:View controllerName="ccepdocgenerator.controller.View1"
+    xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:u="sap.ui.unified" xmlns:form="sap.ui.layout.form" xmlns:card="sap.f"  xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+   <Page id="_IDGenPage" title="Title">
+                <customHeader>
+                    <Bar id="_IDGenBar" class="customBar">
+                        <contentMiddle class="barMiddle" >
+                            <Title id="_IDGenTitle" text="GenAI Document Generation Assistant for SAP"></Title>
+                        </contentMiddle>
+
+                        <contentRight>
+                            <ComboBox id="companyComboBox" width="160px" class="compnayCombobox" selectionChange="onSelectCompany" selectedKey="CCEP">
+                                <items class="combobox">
+                                    <core:Item id="_IDGenItem" key="CCEP" text="CCEP" class="combobox"/>
+                                </items>
+                            </ComboBox>
+                        </contentRight>
+                    </Bar>
+                </customHeader>
+                <content>
+                    <FlexBox id="_IDGenFlexBox" alignItems="End" justifyContent="End">
+                        <Button id="_IDGenButton" text="FeedBack" icon="sap-icon://feedback" class="sapUiTinyMarginEnd" press=".onFeedbackPress"/>
+                    </FlexBox>
+                    <VBox id="_IDGenVBox1" justifyContent="Center" alignItems="Center" class="vBoxBorder" width="86%" >
+                        <card:Card id="_IDGenCard" class="cardCustomBackground ">
+                            <card:content>
+                                <VBox id="_IDGenVBox2" justifyContent="Center" alignItems="Center" class="sapUiSmallMargin ">
+                                    <Text id="_IDGenText" text="Welcome to the SAP FSD and TSD Assistant!" wrapping="true"
+                                        class="welcomeText sapUiSmallMarginTop sapUiTinyMarginBottom bold-text" textAlign="Center"/>
+                                    <VBox id="_IDGenVBox3" justifyContent="Center" alignItems="Center" width="100%">
+                                        <Text id="_IDGenText1"
+                                            text="Empower your SAP projects with our Generative AI-driven solution, designed to simplify and accelerate the creation of Functional and Technical Specification Documents."
+                                            wrapping="true" class="sapUiTinyMarginBottom" textAlign="Center"/>
+                                        <Text id="_IDGenText2"
+                                            text="Functional Specification Document (FSD): Automatically generated using the Delta Requirement Document (DRD) to ensure accurate and comprehensive functional insights."
+                                            wrapping="true" textAlign="Center"/>
+                                        <Text id="_IDGenText3"
+                                            text="Technical Specification Document (TSD): Crafted intelligently by leveraging the FSD and DRD, ensuring technical alignment with functional requirements."
+                                            wrapping="true" textAlign="Center"/>
+                                        <Text id="_IDGenText4"
+                                            text="Our solution reduces manual effort, streamlines documentation with AI-driven templates, enhances collaboration, and ensures accuracy by aligning with SAP best practices."
+                                            wrapping="true" class="sapUiSmallMarginTop sapUiTinyMarginBottom" textAlign="Center"/>
+                                        <Text id="_IDGenText5" text="Let the AI do the heavy lifting while you focus on delivering impactful SAP solutions. " wrapping="true"
+                                            class="sapUiSmallMarginTop sapUiTinyMarginBottom" textAlign="Center"/>
+                                    </VBox>
+                                    <Text id="_IDGenText6" text="Get started now and experience smarter, faster documentation! " wrapping="true" class="sapUiTinyMarginTop bold-text"
+                                        textAlign="Center"/>
+                                </VBox>
+                            </card:content>
+                        </card:Card>
+                    </VBox>
+                    <Panel id="_IDGenPanel" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region"></Panel>
+                    <VBox id="_IDGenVBox4">
+                        <HBox id="_IDGenHBox" width="100%" justifyContent="Center" alignItems="Center" class="buttonBox">
+                            <Button id="id_No1" class="sapUiTinyMarginBegin" type="Emphasized" text="1."/>
+                            <Button id="id_FSD" class="sapUiTinyMarginBegin buttons" type="Emphasized" text="Generate Functional Specification Document"
+                                press=".onFSDPress"/>
+                            <Button id="id_No2" class="sapUiMediumMarginBegin" type="Emphasized" text="2."/>
+                            <Button id="id_TSD" class="sapUiTinyMarginBegin buttons" type="Emphasized" text="Generate Technical Specification Document"
+                                press=".onTSDPress"/>
+                        </HBox>
+                        <Wizard id="id_FSDWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" complete="wizardCompletedHandler"
+                            visible="false">
+                            <WizardStep id="id_FSDStep1" title="Upload Documentation" validated="false">
+                                <VBox id="_IDGenVBox5" class="stepHeaderBox">
+                                    <Text id="_IDGenText7" text="1. Upload DRD &amp; Generate" class="subheadingStyle"/>
+                                    <MessageStrip id="_IDGenMessageStrip" class="sapUiSmallMarginBottom"
+                                    text="Please upload the Delta Requirement Document (DRD) in .docx or .pdf format."
+                                    showIcon="true" type="Information"/>
+                                </VBox>
+
+                                <VBox id="_IDGenVBox" class="uploadCardBox sapUiSmallMarginBottom" alignItems="Center" justifyContent="Center">
+                                    <core:Icon id="_IDGenIcon" src="sap-icon://upload-to-cloud" size="3rem" color="Neutral" class="dropZoneIcon sapUiSmallMarginBottom"/>
+                                    <Text id="_IDGenText8" text="Drag and drop or browse your DRD file" class="sapUiTinyMarginBottom uploadHintText"/>
+                                    <Text id="_IDGenText12" text="Supported formats: .docx, .pdf" class="sapUiTinyMarginBottom uploadSubText"/>
+                                    <HBox id="_IDGenHBox1" alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
+                                        <u:FileUploader
+                                            id="fileUploader"
+                                            name="myFileUpload"
+                                            uploadUrl="upload/"
+                                            tooltip="Upload your file to the local server"
+                                            uploadComplete="handleUploadComplete"
+                                            change="onFileChange"
+                                            fileType="docx,pdf"
+                                            maximumFileSize="10"
+                                            fileSizeExceed="handleFileSizeExceed"
+                                            typeMissmatch="handleTypeMissmatch"
+                                            buttonText="Browse File"
+                                            icon="sap-icon://attach"/>
+                                    </HBox>
+                                </VBox>
+
+                                <VBox id="_IDGenVBox13" alignItems="Center" justifyContent="Center" class="sapUiMediumMarginTop sapUiSmallMarginBottom">
+                                    <Button id="btnFSD11" text="Generate FSD" type="Emphasized"
+                                        icon="sap-icon://generate-shortcut"
+                                        press=".onGenerateFSDPress" visible="true"
+                                        class="generateBtn"
+                                        tooltip="Click here to Generate FSD"/>
+                                    <Button id="btnFSD21" text="Regenerate FSD" type="Emphasized"
+                                        icon="sap-icon://refresh"
+                                        press=".onGenerateFSDPress2" visible="false"
+                                        class="generateBtn sapUiSmallMarginTop"
+                                        tooltip="Click here to Regenerate FSD"/>
+                                </VBox>
+
+                                <HBox id="fsdNudgeBox" alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop sapUiSmallMarginBottom" visible="false">
+                                    <core:Icon id="_IDGenIcon1" src="sap-icon://hint" color="Neutral" class="sapUiTinyMarginEnd"/>
+                                    <Text id="_IDGenText18" text="Want to customise the AI prompt or system message before generating? "
+                                        class="nudgeText"/>
+                                    <Link id="_IDGenLink" text="Proceed to Advanced Settings →"
+                                        press=".onAdvancedSettingsPress"
+                                        subtle="false"
+                                        class="sapUiTinyMarginBegin"/>
+                                </HBox>
+                            </WizardStep>
+                            <WizardStep id="id_FSDStep2" validated="false" title="Customize &amp; Re-generate" activate="additionalInfoValidation">
+                                <VBox id="_IDGenVBox6" class="stepHeaderBox">
+                                    <Text id="_IDGenText9" text="2. Customize &amp; Re-generate" class="subheadingStyle"/>
+                                    <MessageStrip id="_IDGenMessageStrip1" class="sapUiTnyMarginBottom"
+                                    text="Documents uploaded successfully. Click 'Generate FSD' to process the files with Generative AI. You can fine-tune the AI behaviour before generating your FSD." showIcon="true"/>
+                                </VBox>
+
+                                <Text id="_IDGenText10"
+                                    text="The default prompt settings for creating the FSD are already configured. If you wish to customize, you can add specific prompts in the prompt fields or import prompts from the Global Prompt Repository. To proceed with the default prompt, simply click 'Generate FSD' without making any changes. "
+                                    class="sapUiSmallMarginTop sapUiMediumMarginBottom"/>
+
+                                <HBox id="_IDGenHBox3" class="toolbarRow sapUiTinyMarginBottom" justifyContent="SpaceBetween" alignItems="Center">
+                                    <HBox id="_IDGenHBox11" alignItems="Center">
+                                        <core:Icon id="_IDGenIcon2" src="sap-icon://ai" class="sapUiTinyMarginEnd toolbarIcon"/>
+                                        <Text id="_IDGenText19" text="AI Configuration" class="toolbarLabel"/>
+                                    </HBox>
+                                    <HBox id="_IDGenHBox12" alignItems="Center">
+                                        <Label id="_IDGenLabel" text="Select Model:" class="sapUiTinyMarginEnd modelLabel"/>
+                                        <ComboBox id="_IDGenComboBox" selectedKey="GPT 4o" width="140px">
+                                            <core:Item id="_IDGenItem1" key="GPT 4o" text="GPT 4o"/>
+                                        </ComboBox>
+                                        <Button id="_IDGenButton1" text="Prompt Parameters" icon="sap-icon://edit-outside"
+                                                type="Ghost" class="sapUiSmallMarginBegin"
+                                                press=".onEditPromptParameterPress"/>
+                                    </HBox>
+                                </HBox>
+
+                                <VBox id="_IDGenVBox7">
+                                    <form:SimpleForm id="_IDGenSimpleForm" editable="true" layout="ResponsiveGridLayout">
+
+                                        <Label id="id_FSDPromptLabel" text="Prompt" visible="false"/>
+                                        <HBox id="id_FSDPromptRow" visible="false">
+                                            <ComboBox id="_IDGenComboBox1" class="customWideComboBox" selectionChange="onComboBoxSelectionChange">
+                                                <core:Item id="_IDGenItem2" key="e" text="Can you please Give me more information about Expected outcome in 10 sentences?"/>
+                                                <core:Item id="_IDGenItem3" key="b" text="Provide more information containing SAP Tables, T-Codes data in 'Brief Description'?"/>
+                                                <core:Item id="_IDGenItem4" key="c" text="Can you please Give me more information about Additional Information in 10 points?"/>
+                                                <core:Item id="_IDGenItem5" key="d" text="Can you please Give me more information about Sample Enhancements in 10 points?"/>
+                                            </ComboBox>
+                                            <Button text="Import Prompt" id="importpromptbutton" class="sapUiTinyMarginBegin" press=".onImportPromtPress2"
+                                                tooltip="Use this feature to import predefined prompts from the Global Prompt Repository"/>
+                                        </HBox>
+
+                                        <Label id="_IDGenLabel2" text="System Message" class="promptSectionLabel" icon="sap-icon://sys-help"/>
+
+                                        <HBox id="_IDGenHBox4">
+                                            <TextArea id="id_FSDsysMess" growing="false" width="300%" class="customHeight" editable="false"
+                                                value="Your task is to create and convert it into appropriate content for the FSD (Functional Specification Document). Ensure that the response for the FSD is derived from the DRD or Delta Requirement Documents, but is reworded in a way that makes both the original document and the FSD response distinct from one another. The context should be maintained, but the wording should not be identical"/>
+                                            <Button id="_IDGenButton2" icon="sap-icon://edit" class="customLargeMarginBegin" press=".onEditSysMessage" tooltip="Click here to edit the text"/>
+                                        </HBox>
+                                        <Label id="_IDGenLabel3" text="Enter Your Prompt"/>
+                                        <HBox id="_IDGenHBox5">
+    <TextArea id="id_FSDprompt" value="" editable="true" growing="false" growingMaxLines="10" rows="5" width="300%" />
+</HBox>
+                                    </form:SimpleForm>
+                                </VBox>
+                                <VBox id="_IDGenVBox8" justifyContent="Center" alignItems="Center">
+                                    <Button text="Generate FSD" type="Emphasized" press=".onGenerateFSDPress" visible="true" id="btnFSD1" tooltip="Click here to Generate FSD"/>
+                                    <Button text="Generate FSD" type="Emphasized" press=".onGenerateFSDPress2" visible="false" id="btnFSD2" tooltip="Click here to Generate FSD"/>
+                                </VBox>
+                            </WizardStep>
+
+                        </Wizard>
+                        <Wizard id="id_TSDWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" complete="wizardCompletedHandler"
+                            visible="false">
+                            <WizardStep id="id_TSDStep1" title="Upload Documentation" validated="false">
+                                <VBox id="_IDGenVBox9" class="stepHeaderBox">
+                                    <Text id="_IDGenText11" text="1. Upload FSD &amp; Generate" class="subheadingStyle"/>
+                                    <MessageStrip id="_IDGenMessageStrip2" class="sapUiSmallMarginBottom"
+                                    text="Please upload the Functional Specification Document (FSD) to proceed with generating the Technical Specification Document (TSD). Ensure the file is in the correct format for seamless processing."
+                                    showIcon="true" type="Information"/>
+                                </VBox>
+
+                                <VBox id="_IDGenVBox14" class="uploadCardBox sapUiSmallMarginBottom" alignItems="Center" justifyContent="Center">
+                                    <core:Icon id="_IDGenIcon3" src="sap-icon://upload-to-cloud" size="3rem" color="Neutral" class="dropZoneIcon sapUiSmallMarginBottom"/>
+                                    <Text id="_IDGenText20" text="Drag and drop or browse your FSD file" class="sapUiTinyMarginBottom uploadHintText"/>
+                                    <Text id="_IDGenText21" text="Supported formats: .docx, .pdf" class="sapUiTinyMarginBottom uploadSubText"/>
+                                    <HBox id="_IDGenHBox6" alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">
+                                        <u:FileUploader
+                                            id="TSDfileUploader"
+                                            name="myFileUpload"
+                                            uploadUrl="upload/"
+                                            tooltip="Upload your file to the local server"
+                                            change="onFileChangeTSD"
+                                            uploadComplete="handleUploadComplete"
+                                            multiple="true"
+                                            fileType="docx,pdf"
+                                            maximumFileSize="10"
+                                            fileSizeExceed="handleFileSizeExceed"
+                                            typeMissmatch="handleTypeMissmatch"
+                                            buttonText="Browse File"
+                                            icon="sap-icon://attach"/>
+                                    </HBox>
+                                </VBox>
+
+                                <VBox id="_IDGenVBox15" alignItems="Center" justifyContent="Center" class="sapUiMediumMarginTop sapUiSmallMarginBottom">
+                                    <Button id="btnTSD11" text="Generate TSD" type="Emphasized"
+                                        icon="sap-icon://generate-shortcut"
+                                        press="onGenerateTSDPress"
+                                        class="generateBtn"
+                                        tooltip="Click here to Generate TSD"/>
+
+                                </VBox>
+
+                                <HBox id="tsdNudgeBox" alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop sapUiSmallMarginBottom" visible="false">
+                                    <core:Icon id="_IDGenIcon4" src="sap-icon://hint" color="Neutral" class="sapUiTinyMarginEnd"/>
+                                    <Text id="_IDGenText22" text="Want to customise the AI prompt or system message before generating? "
+                                        class="nudgeText"/>
+                                    <Link id="_IDGenLink1" text="Proceed to Advanced Settings →"
+                                        press=".onAdvancedSettingsPress"
+                                        subtle="false"
+                                        class="sapUiTinyMarginBegin"/>
+                                </HBox>
+                            </WizardStep>
+                            <WizardStep id="id_TSDStep2" validated="false" title="Customize &amp; Re-generate" activate="additionalInfoValidation">
+                                <VBox id="_IDGenVBox10" class="stepHeaderBox">
+                                    <Text id="_IDGenText13" text="2. Customize &amp; Re-generate" class="subheadingStyle"/>
+                                    <MessageStrip id="_IDGenMessageStrip3" class="sapUiTinyMarginBottom"
+                                    text="Documents uploaded successfully. Click 'Generate TSD' to process the files with Generative AI." showIcon="true"/>
+                                </VBox>
+
+                                <Text id="_IDGenText14"
+                                    text="The default prompt settings for creating the TSD are already configured. If you wish to customize, you can add specific prompts in the prompt fields or import prompts from the Global Prompt Repository. To proceed with the default prompt, simply click 'Generate TSD' without making any changes. "
+                                    class="sapUiSmallMarginTop sapUiMediumMarginBottom"/>
+                                <HBox id="_IDGenHBox13" class="toolbarRow sapUiTinyMarginBottom" justifyContent="SpaceBetween" alignItems="Center">
+                                    <HBox id="_IDGenHBox14" alignItems="Center">
+                                        <core:Icon id="_IDGenIcon5" src="sap-icon://ai" class="sapUiTinyMarginEnd toolbarIcon"/>
+                                        <Text id="_IDGenText23" text="AI Configuration" class="toolbarLabel"/>
+                                    </HBox>
+                                    <HBox id="_IDGenHBox7" justifyContent="End" alignItems="End">
+                                        <Label id="_IDGenLabel4" text="Select Model :" class="sapUiTinyMarginBottom sapUiTinyMarginEnd"/>
+                                        <ComboBox id="_IDGenComboBox2" selectedKey="GPT 4o" width="140px">
+                                            <core:Item id="_IDGenItem6" key="GPT 4o" text="GPT 4o"/>
+                                        </ComboBox>
+                                        <Button id="_IDGenButton4" text="Prompt Parameters" icon="sap-icon://edit-outside" class="sapUiTinyMarginBegin" press=".onEditPromptParameterPress"/>
+                                    </HBox>
+                                </HBox>
+                                <VBox id="_IDGenVBox11">
+                                    <form:SimpleForm id="_IDGenSimpleForm1" editable="true" layout="ResponsiveGridLayout">
+
+                                        <VBox id="id_TSDPromptRow" visible="false">
+                                            <Label id="_IDGenLabel5" text="Prompt"/>
+                                            <HBox id="_IDGenHBox8">
+                                                <ComboBox id="_IDGenComboBox3" class="customWideComboBox" selectionChange="onComboBoxSelectionChangeTSD">
+                                                    <core:Item id="_IDGenItem7" key="e" text="Can you give more information about Background Processing in 20 sentences?"/>
+                                                    <core:Item id="_IDGenItem8" key="f" text="Can you provide more information about Assumptions in 15 sentences?"/>
+                                                    <core:Item id="_IDGenItem9" key="a" text="Can you provide more information about Performance Considerations in 15 sentences?"/>
+                                                    <core:Item id="_IDGenItem10" key="b" text="Can you provide more information about Requirements in 20 sentences?"/>
+                                                </ComboBox>
+                                                <Button id="_IDGenButton5" text="Import Prompt" class="sapUiTinyMarginBegin" press=".onImportPromtPress"
+                                                    tooltip="Use this feature to import predefined prompts from the Global Prompt Repository"/>
+                                            </HBox>
+                                        </VBox>
+
+                                        <Label id="_IDGenLabel6" text="System Message"/>
+                                        <HBox id="_IDGenHBox9">
+                                            <TextArea id="id_TSDsysMess" growing="false" width="300%" height="150px" class="customHeight" editable="false"
+                                                value="Act as a proficient SAP ABAP consultant. Your task is to extract relevant technical information from the provided Functional Specification Document (FSD) and Delta Requirement Document (DRD) Include any required custom ABAP objects, enhancements, or interfaces.Clearly capture the technical requirements and their alignment with the functional specifications, addressing any changes or additional requirements from the delta document.Ensure the TSD is well-structured and provides clear guidance for the ABAP development team."/>
+                                            <Button id="_IDGenButton6" icon="sap-icon://edit" class="customLargeMarginBegin" press=".onEditSysMessage" tooltip="Click here to edit the text"/>
+                                        </HBox>
+                                        <Label id="_IDGenLabel7" text="Enter Your Prompt"/>
+                                        <HBox id="_IDGenHBox10">
+    <TextArea id="id_TSDprompt" value="" editable="true" growing="false" growingMaxLines="10" rows="5" width="300%" />
+</HBox>
+                                    </form:SimpleForm>
+                                </VBox>
+                                <VBox id="_IDGenVBox12" justifyContent="Center" alignItems="Center">
+                                    <Button id="btnTSD1" text="Generate TSD" type="Emphasized" press="onGenerateTSDPress" tooltip="Click here to Gerenate TSD"/>
+                                    <Button id="btnTSD2" text="Regenerate TSD" type="Emphasized" press="onGenerateTSDPress2" visible="false" tooltip="Click here to Gerenate TSD"/>
+                                </VBox>
+                            </WizardStep>
+                        </Wizard>
+                    </VBox>
+                </content>
+            </Page>
+</mvc:View>
