@@ -14,13 +14,13 @@
                                     <core:Item id="_IDGenItem" key="CCEP" text="CCEP" class="combobox"/>
                                 </items>
                             </ComboBox>
+                             
+                     
                         </contentRight>
                     </Bar>
                 </customHeader>
                 <content>
-                    <FlexBox id="_IDGenFlexBox" alignItems="End" justifyContent="End">
-                        <Button id="_IDGenButton" text="FeedBack" icon="sap-icon://feedback" class="sapUiTinyMarginEnd" press=".onFeedbackPress"/>
-                    </FlexBox>
+                    
                     <VBox id="_IDGenVBox1" justifyContent="Center" alignItems="Center" class="vBoxBorder" width="86%" >
                         <card:Card id="_IDGenCard" class="cardCustomBackground ">
                             <card:content>
@@ -96,11 +96,7 @@
                                         press=".onGenerateFSDPress" visible="true"
                                         class="generateBtn"
                                         tooltip="Click here to Generate FSD"/>
-                                    <Button id="btnFSD21" text="Regenerate FSD" type="Emphasized"
-                                        icon="sap-icon://refresh"
-                                        press=".onGenerateFSDPress2" visible="false"
-                                        class="generateBtn sapUiSmallMarginTop"
-                                        tooltip="Click here to Regenerate FSD"/>
+                                    
                                 </VBox>
 
                                 <HBox id="fsdNudgeBox" alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop sapUiSmallMarginBottom" visible="false">
@@ -129,11 +125,13 @@
                                         <core:Icon id="_IDGenIcon2" src="sap-icon://ai" class="sapUiTinyMarginEnd toolbarIcon"/>
                                         <Text id="_IDGenText19" text="AI Configuration" class="toolbarLabel"/>
                                     </HBox>
+                                  
                                     <HBox id="_IDGenHBox12" alignItems="Center">
                                         <Label id="_IDGenLabel" text="Select Model:" class="sapUiTinyMarginEnd modelLabel"/>
-                                        <ComboBox id="_IDGenComboBox" selectedKey="GPT 4o" width="140px">
-                                            <core:Item id="_IDGenItem1" key="GPT 4o" text="GPT 4o"/>
-                                        </ComboBox>
+                                        <ComboBox id="_IDGenComboBox" selectedKey="GPT_4o" width="180px">
+    <core:Item id="_IDGenItem1" key="GPT_4o" text="GPT 4o"/>
+   
+</ComboBox>
                                         <Button id="_IDGenButton1" text="Prompt Parameters" icon="sap-icon://edit-outside"
                                                 type="Ghost" class="sapUiSmallMarginBegin"
                                                 press=".onEditPromptParameterPress"/>
@@ -143,18 +141,15 @@
                                 <VBox id="_IDGenVBox7">
                                     <form:SimpleForm id="_IDGenSimpleForm" editable="true" layout="ResponsiveGridLayout">
 
-                                        <Label id="id_FSDPromptLabel" text="Prompt" visible="false"/>
-                                        <HBox id="id_FSDPromptRow" visible="false">
-                                            <ComboBox id="_IDGenComboBox1" class="customWideComboBox" selectionChange="onComboBoxSelectionChange">
-                                                <core:Item id="_IDGenItem2" key="e" text="Can you please Give me more information about Expected outcome in 10 sentences?"/>
-                                                <core:Item id="_IDGenItem3" key="b" text="Provide more information containing SAP Tables, T-Codes data in 'Brief Description'?"/>
-                                                <core:Item id="_IDGenItem4" key="c" text="Can you please Give me more information about Additional Information in 10 points?"/>
-                                                <core:Item id="_IDGenItem5" key="d" text="Can you please Give me more information about Sample Enhancements in 10 points?"/>
-                                            </ComboBox>
-                                            <Button text="Import Prompt" id="importpromptbutton" class="sapUiTinyMarginBegin" press=".onImportPromtPress2"
-                                                tooltip="Use this feature to import predefined prompts from the Global Prompt Repository"/>
-                                        </HBox>
-
+                                       <Label id="id_FSDPromptLabel" text="Prompt" visible="true"/>
+<HBox id="id_FSDPromptRow" visible="true">
+    <ComboBox id="_IDGenComboBox1" width="300%" selectionChange="onComboBoxSelectionChange">
+        <core:Item id="_IDGenItem2" key="e" text="Can you please Give me more information about Expected outcome in 10 sentences?"/>
+        <core:Item id="_IDGenItem3" key="b" text="Provide more information containing SAP Tables, T-Codes data in 'Brief Description'?"/>
+        <core:Item id="_IDGenItem4" key="c" text="Can you please Give me more information about Additional Information in 10 points?"/>
+        <core:Item id="_IDGenItem5" key="d" text="Can you please Give me more information about Sample Enhancements in 10 points?"/>
+    </ComboBox>
+</HBox>
                                         <Label id="_IDGenLabel2" text="System Message" class="promptSectionLabel" icon="sap-icon://sys-help"/>
 
                                         <HBox id="_IDGenHBox4">
@@ -169,9 +164,8 @@
                                     </form:SimpleForm>
                                 </VBox>
                                 <VBox id="_IDGenVBox8" justifyContent="Center" alignItems="Center">
-                                    <Button text="Generate FSD" type="Emphasized" press=".onGenerateFSDPress" visible="true" id="btnFSD1" tooltip="Click here to Generate FSD"/>
-                                    <Button text="Generate FSD" type="Emphasized" press=".onGenerateFSDPress2" visible="false" id="btnFSD2" tooltip="Click here to Generate FSD"/>
-                                </VBox>
+    <Button text="Regenerate FSD" type="Emphasized" press=".onGenerateFSDPress2" id="btnFSD2" tooltip="Click here to Regenerate FSD"/>
+</VBox>
                             </WizardStep>
 
                         </Wizard>
@@ -242,29 +236,29 @@
                                         <Text id="_IDGenText23" text="AI Configuration" class="toolbarLabel"/>
                                     </HBox>
                                     <HBox id="_IDGenHBox7" justifyContent="End" alignItems="End">
-                                        <Label id="_IDGenLabel4" text="Select Model :" class="sapUiTinyMarginBottom sapUiTinyMarginEnd"/>
-                                        <ComboBox id="_IDGenComboBox2" selectedKey="GPT 4o" width="140px">
-                                            <core:Item id="_IDGenItem6" key="GPT 4o" text="GPT 4o"/>
-                                        </ComboBox>
+                                      <Label id="_IDGenLabel4" text="Select Model :" class="sapUiTinyMarginBottom sapUiTinyMarginEnd"/>
+<ComboBox id="_IDGenComboBox2" selectedKey="gpt-4o" width="140px">
+    <core:Item id="_IDGenItem6" key="gpt-4o" text="GPT 4o"/>
+    
+</ComboBox>
                                         <Button id="_IDGenButton4" text="Prompt Parameters" icon="sap-icon://edit-outside" class="sapUiTinyMarginBegin" press=".onEditPromptParameterPress"/>
                                     </HBox>
                                 </HBox>
                                 <VBox id="_IDGenVBox11">
                                     <form:SimpleForm id="_IDGenSimpleForm1" editable="true" layout="ResponsiveGridLayout">
 
-                                        <VBox id="id_TSDPromptRow" visible="false">
-                                            <Label id="_IDGenLabel5" text="Prompt"/>
-                                            <HBox id="_IDGenHBox8">
-                                                <ComboBox id="_IDGenComboBox3" class="customWideComboBox" selectionChange="onComboBoxSelectionChangeTSD">
-                                                    <core:Item id="_IDGenItem7" key="e" text="Can you give more information about Background Processing in 20 sentences?"/>
-                                                    <core:Item id="_IDGenItem8" key="f" text="Can you provide more information about Assumptions in 15 sentences?"/>
-                                                    <core:Item id="_IDGenItem9" key="a" text="Can you provide more information about Performance Considerations in 15 sentences?"/>
-                                                    <core:Item id="_IDGenItem10" key="b" text="Can you provide more information about Requirements in 20 sentences?"/>
-                                                </ComboBox>
-                                                <Button id="_IDGenButton5" text="Import Prompt" class="sapUiTinyMarginBegin" press=".onImportPromtPress"
-                                                    tooltip="Use this feature to import predefined prompts from the Global Prompt Repository"/>
-                                            </HBox>
-                                        </VBox>
+                                       
+                                        
+    <Label id="_IDGenLabel5" text="Prompt"/>
+    <HBox id="id_TSDPromptRow" visible="true">
+    <ComboBox id="_IDGenComboBox3" width="300%" selectionChange="onComboBoxSelectionChangeTSD">
+            <core:Item id="_IDGenItem7" key="e" text="Can you give more information about Background Processing in 20 sentences?"/>
+            <core:Item id="_IDGenItem8" key="f" text="Can you provide more information about Assumptions in 15 sentences?"/>
+            <core:Item id="_IDGenItem9" key="a" text="Can you provide more information about Performance Considerations in 15 sentences?"/>
+            <core:Item id="_IDGenItem10" key="b" text="Can you provide more information about Requirements in 20 sentences?"/>
+        </ComboBox>
+    </HBox>
+
 
                                         <Label id="_IDGenLabel6" text="System Message"/>
                                         <HBox id="_IDGenHBox9">
@@ -279,9 +273,8 @@
                                     </form:SimpleForm>
                                 </VBox>
                                 <VBox id="_IDGenVBox12" justifyContent="Center" alignItems="Center">
-                                    <Button id="btnTSD1" text="Generate TSD" type="Emphasized" press="onGenerateTSDPress" tooltip="Click here to Gerenate TSD"/>
-                                    <Button id="btnTSD2" text="Regenerate TSD" type="Emphasized" press="onGenerateTSDPress2" visible="false" tooltip="Click here to Gerenate TSD"/>
-                                </VBox>
+    <Button id="btnTSD2" text="Regenerate TSD" type="Emphasized" press="onGenerateTSDPress2" tooltip="Click here to Regenerate TSD"/>
+</VBox>
                             </WizardStep>
                         </Wizard>
                     </VBox>

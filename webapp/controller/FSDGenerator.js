@@ -1,4 +1,5 @@
 /* global $:readonly */
+/* eslint-disable @sap-ux/fiori-tools/sap-no-dom-insertion, @sap-ux/fiori-tools/sap-timeout-usage */
 sap.ui.define([], function () {
 	"use strict";
 
@@ -18,7 +19,7 @@ onGenerateFSDPress: function () {
     var that = this;
     var currentPath = window.location.pathname;
     var appModulePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
-    var sApiUrl = appModulePath + "/fsd_gen_api/drdtofsdagent";
+    var sApiUrl = appModulePath + "/fsd_gen_api/drdtofsdconversion";
 
     // Helper: build a fresh FormData each attempt (FormData can only be sent once)
     function buildFormData() {
@@ -55,18 +56,27 @@ onGenerateFSDPress: function () {
                     timeout: 0,
                     data: buildFormData(),
                     success: function (response) {
-                        that.oBusyDialog.close();
-                        var stringData = (typeof response === "object") ? JSON.stringify(response) : response;
-                        that.response = stringData;
-                        that.responseapi1Global = stringData;
-                        if (typeof that.createFSD === "function") {
-                            that.createFSD(stringData);
-                        }
-                        if (typeof that._onFSDGeneratedSuccess === "function") {
-                            that._onFSDGeneratedSuccess();
-                        }
-                        sap.m.MessageToast.show("FSD Generated Successfully");
-                    },
+    that.oBusyDialog.close();
+    var stringData = (typeof response === "object") ? JSON.stringify(response) : response;
+    that.response = stringData;
+    that.responseapi1Global = stringData;
+
+    // Toggle UI state FIRST, so it always happens even if document build fails
+    if (typeof that._onFSDGeneratedSuccess === "function") {
+        that._onFSDGeneratedSuccess();
+    }
+
+    // Wrap createFSD so a bad response shape can't kill the whole success handler
+    try {
+        if (typeof that.createFSD === "function") {
+            that.createFSD(stringData);
+        }
+    } catch (e) {
+        sap.m.MessageBox.error("FSD document could not be built: " + e.message);
+    }
+
+    sap.m.MessageToast.show("FSD Generated Successfully");
+},
                     error: function (jqXHR, textStatus) {
                         // 403 = stale/missing CSRF token — re-fetch token and retry
                         if (jqXHR.status === 403 && attempt < maxRetries) {

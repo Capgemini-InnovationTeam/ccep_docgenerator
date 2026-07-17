@@ -1,43 +1,36 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog id="promptParameter" title="Prompt Parameters">
-		<content>
-			<IconTabBar headerMode="Inline">
-				<items>
-					<IconTabFilter text="Parameters" icon="sap-icon://table-view">
-						<Label design="Bold" text="Max response"/>
-						<FlexBox renderType="Bare" class="case1 ">
-							<items>
-							<Slider id="heightSlider" editable="false" class="demo smallSliderHandle" value="{apiModel>/max_tokens}" step="1" min="0" max="50000" ariaLabelledBy="heightLabel"/>
+    <Dialog id="promptParameter" title="Prompt Parameters">
+        <content>
+            <IconTabBar headerMode="Inline">
+                <items>
+                    <IconTabFilter text="Parameters" icon="sap-icon://table-view">
 
-								<Input width="80px" editable="false" value="{path:'apiModel>/max_tokens', type:'sap.ui.model.type.Integer'}" ariaLabelledBy="heightLabel"/>
-							</items>
-						</FlexBox>
-						<Label design="Bold" text="Temparature"/>
-						<FlexBox renderType="Bare" class=" case1 ">
-							<items>
-								<Slider id="heightSlider1" class="demo" value="{apiModel>/temperature}" step="1" min="0" max="360" ariaLabelledBy="heightLabel"/>
-								<Input width="80px" value="{path:'apiModel>/temperature', type:'sap.ui.model.type.Integer'}" ariaLabelledBy="heightLabel"/>
-							</items>
-						</FlexBox>
-						<Label design="Bold" text="Top p"/>
-						<FlexBox renderType="Bare" class=" case1 ">
-							<items>
-								<Slider id="heightSlider2" class="demo" value="{apiModel>/top_p}" step="1" min="0" max="360" ariaLabelledBy="heightLabel"/>
-								<Input width="80px" value="{path:'apiModel>/top_p', type:'sap.ui.model.type.Integer'}" ariaLabelledBy="heightLabel"/>
-							</items>
-						</FlexBox>
-						
-						<HBox justifyContent="End" alignItems="Center">
-							<VBox justifyContent="End" alignItems="" direction="Row">
-								
-							</VBox>
-						</HBox>
-					</IconTabFilter>
-				</items>
-			</IconTabBar>
-		</content>
-		<buttons>
-			<Button text="Save and Close" width="150px" type="Emphasized" press="onCloseParametersDialog"/>
-		</buttons>
-	</Dialog>
+                        <Label design="Bold" text="Max response"/>
+                        <FlexBox renderType="Bare" class="case1 sapUiSmallMarginBottom" alignItems="Center">
+                            <items>
+                                <Slider id="heightSlider" editable="false" class="paramSlider" width="70%"
+                                    value="{apiModel>/max_tokens}" step="100" min="0" max="12000" ariaLabelledBy="heightLabel"/>
+                                <Input width="80px" class="sapUiTinyMarginBegin" editable="false"
+                                    value="{path:'apiModel>/max_tokens', type:'sap.ui.model.type.Integer'}" ariaLabelledBy="heightLabel"/>
+                            </items>
+                        </FlexBox>
+
+                        <Label design="Bold" text="Temperature"/>
+                        <FlexBox renderType="Bare" class="case1" alignItems="Center">
+                            <items>
+                                <Slider id="heightSlider1" class="paramSlider" width="70%"
+                                    value="{apiModel>/temperature}" step="0.1" min="0" max="1" ariaLabelledBy="heightLabel"/>
+                                <Input width="80px" class="sapUiTinyMarginBegin"
+                                    value="{path:'apiModel>/temperature', type:'sap.ui.model.type.Float'}" ariaLabelledBy="heightLabel"/>
+                            </items>
+                        </FlexBox>
+
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+        <buttons>
+            <Button text="Save and Close" width="150px" type="Emphasized" press="onCloseParametersDialog"/>
+        </buttons>
+    </Dialog>
 </core:FragmentDefinition>

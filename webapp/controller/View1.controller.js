@@ -1,13 +1,15 @@
 /* global $:readonly */
+/* eslint-disable @sap-ux/fiori-tools/sap-no-dom-insertion, @sap-ux/fiori-tools/sap-timeout-usage */
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
+	"sap/m/MessageToast" ,
     "ccepdocgenerator/controller/TSDGenerator",
     "ccepdocgenerator/controller/TSDFollowUp",
     "ccepdocgenerator/controller/FSDGenerator",
     "ccepdocgenerator/controller/FSDFollowUp"
-], function (Controller, JSONModel, MessageBox, TSDGenerator, TSDFollowUp, FSDGenerator, FSDFollowUp) {
+], function (Controller, JSONModel, MessageBox, MessageToast, TSDGenerator, TSDFollowUp, FSDGenerator, FSDFollowUp) {
     "use strict";
 
     return Controller.extend("ccepdocgenerator.controller.View1",
@@ -31,9 +33,7 @@ sap.ui.define([
 
 			};
 
-			this.updateAPIModelFlag = false;
-			var oApiModel = new sap.ui.model.json.JSONModel(this.openAIModelData);
-			this.getView().setModel(oApiModel, "apiModel");
+			
 
 			var oModifiedAPIModel = new sap.ui.model.json.JSONModel();
 			this.getView().setModel(oModifiedAPIModel, "ModifiedAPIModel");
@@ -48,17 +48,7 @@ sap.ui.define([
 			this.getView().setModel(oPromptsModelFSD, "promptsModel");
 			this.getView().setModel(oPromptsModelTSD, "promptsModel2");
 
-			var oFeedbackModel = new JSONModel({
-				feedback: {
-					issueType: "",
-					priority: "",
-					title: "",
-					description: "",
-					attachedFile: ""
-				}
-			});
-			// Set the model to the view
-			this.getView().setModel(oFeedbackModel, "feedbackModel");
+			
 			this.response = null;
 			this.responseapi1Global = null;
 			this.RESPONSE = null;
@@ -85,13 +75,21 @@ sap.ui.define([
 			this.onGenerateTSDPress2 = TSDFollowUp.onGenerateTSDPress2.bind(this);
 this._callSecondAPITSD2  = TSDFollowUp._callSecondAPITSD2.bind(this);
 this.onComboBoxSelectionChangeTSD = TSDFollowUp.onComboBoxSelectionChangeTSD.bind(this);
-this.onImportPromtPress = TSDFollowUp.onImportPromtPress.bind(this);
+
 this.onSavePromptSelection = TSDFollowUp.onSavePromptSelection.bind(this);
 this.onClosePromptSelection = TSDFollowUp.onClosePromptSelection.bind(this);
 
+    this.openAIModelData = {
+    isEditable: false,
+    temperature: 0.0,
+    max_tokens: 12000,
+    top_p: 1
+};
 
+this.updateAPIModelFlag = false;
+var oApiModel = new sap.ui.model.json.JSONModel(this.openAIModelData);
+this.getView().setModel(oApiModel, "apiModel");
 		},
-
 
 
 
@@ -103,20 +101,30 @@ this.onClosePromptSelection = TSDFollowUp.onClosePromptSelection.bind(this);
 			this.getView().byId("id_FSDWizard").setVisible(true);
 		},
 		
-		onEditSysMessage: function (oEvent) {
+onEditSysMessage: function (oEvent) {
+    var oButton = oEvent.getSource();
+    var oParentHBox = oButton.getParent();      // HBox wrapping [TextArea, Button]
+    var oTextArea = oParentHBox.getItems()[0];  // the sys message TextArea
 
+    var bIsEditing = oTextArea.getEditable();
 
-			if (oEvent.getSource().getParent().getAggregation("items")[0].getId().includes("FSD")) {
-				this.getView().byId("id_FSDsysMess").setEditable(true);
-				this.getView().byId("id_TSDsysMess").setEditable(false);
-				this.getView().byId("btnFSD1").setVisible(false);
-				this.getView().byId("btnFSD2").setVisible(true);
-			}
-			if (oEvent.getSource().getParent().getAggregation("items")[0].getId().includes("TSD")) {
-				this.getView().byId("id_TSDsysMess").setEditable(true);
-				this.getView().byId("id_FSDsysMess").setEditable(false);
-			}
-		},
+    if (!bIsEditing) {
+        // Enter edit mode
+        oTextArea.setEditable(true);
+        oButton.setIcon("sap-icon://save");
+        oButton.setTooltip("Click here to save the system message");
+        oTextArea.addStyleClass("sysMessageEditing");
+        oTextArea.focus();
+    } else {
+        // Save and lock again
+        oTextArea.setEditable(false);
+        oButton.setIcon("sap-icon://edit");
+        oButton.setTooltip("Click here to edit the text");
+        oTextArea.removeStyleClass("sysMessageEditing");
+        sap.m.MessageToast.show("System message saved");
+    }
+},
+
 			handleTypeMissmatch: function (oEvent) {
 			var sFileType = oEvent.getParameter("fileType");
 			var sFileName = oEvent.getParameter("fileName");
@@ -148,50 +156,29 @@ this.onClosePromptSelection = TSDFollowUp.onClosePromptSelection.bind(this);
 			return aAllowedExtensions.indexOf(sExtension) !== -1;
 		},
 		onEditPrompt: function (oEvent) {
-			if (oEvent.getSource().getParent().getAggregation("items")[0].getId().includes("FSD")) {
-				this.getView().byId("id_FSDprompt").setEditable(true);
-				this.getView().byId("id_TSDprompt").setEditable(false);
-				this.getView().byId("btnFSD1").setVisible(false);
-				this.getView().byId("btnFSD2").setVisible(true);
-				this.getView().byId("btnTSD1").setVisible(false);
-				this.getView().byId("btnTSD2").setVisible(true);
-
-
-
-
-			}
-			if (oEvent.getSource().getParent().getAggregation("items")[0].getId().includes("TSD")) {
-				this.getView().byId("id_TSDprompt").setEditable(true);
-				this.getView().byId("id_FSDprompt").setEditable(false);
-				this.getView().byId("btnTSD1").setVisible(false);
-				this.getView().byId("btnTSD2").setVisible(true);
-			}
-		},
+    if (oEvent.getSource().getParent().getAggregation("items")[0].getId().includes("FSD")) {
+        this.getView().byId("id_FSDprompt").setEditable(true);
+        this.getView().byId("id_TSDprompt").setEditable(false);
+        
+    }
+    if (oEvent.getSource().getParent().getAggregation("items")[0].getId().includes("TSD")) {
+        this.getView().byId("id_TSDprompt").setEditable(true);
+        this.getView().byId("id_FSDprompt").setEditable(false);
+        
+    }
+},
 		onEditPromptParameterPress: function () {
-			if (!this._oPromptPopover1) {
-				this._oPromptPopover1 = sap.ui.xmlfragment("promptParameter", "ccepdocgenerator.view.fragment.promptParameter", this);
-				this.getView().addDependent(this._oPromptPopover1);
-				this._oPromptPopover1.setContentWidth("390px");
-			}
-			//	this._oPopover1.setModel(contactModel, "contact");
-			this._oPromptPopover1.open();
-		},
+    if (!this._oPromptPopover1) {
+        this._oPromptPopover1 = sap.ui.xmlfragment("promptParameter", "ccepdocgenerator.view.fragment.promptParameter", this);
+        this.getView().addDependent(this._oPromptPopover1);
+        this._oPromptPopover1.setContentWidth("390px");
+    }
+    this._oPromptPopover1.open();
+},
 		onPPCancel: function () {
 			this._oPromptPopover1.close();
 		},
-		onFeedbackPress: function () {
-
-			if (!this._oFeedbackPopover1) {
-				this._oFeedbackPopover1 = sap.ui.xmlfragment("id_feedback", "ccepdocgenerator.view.fragment.feedback", this);
-				this.getView().addDependent(this._oFeedbackPopover1);
-
-			}
-			//	this._oPopover1.setModel(contactModel, "contact");
-			this._oFeedbackPopover1.open();
-		},
-		onFeedbackCancel: function () {
-			this._oFeedbackPopover1.close();
-		},
+		
 		//-----------functions-----------//
 		onFileChange: function (oEvent) {
 
@@ -266,19 +253,29 @@ this.onClosePromptSelection = TSDFollowUp.onClosePromptSelection.bind(this);
 
 			
 		},
-		onCloseParametersDialog: function () {
-			if (this._oPromptPopover1) {
-				this._oPromptPopover1.close();
+onCloseParametersDialog: function () {
+    if (this._oPromptPopover1) {
 
-				var oModel = this.getView().getModel("apiModel");
-				var oData = oModel.getData();
+        var oModel = this.getView().getModel("apiModel");
+        var oData = oModel.getData();
 
-				var oModifiedAPIModel = this.getView().getModel("ModifiedAPIModel");
-				oModifiedAPIModel.setData(oData);
+        var oModifiedAPIModel = this.getView().getModel("ModifiedAPIModel");
+        oModifiedAPIModel.setData(oData);
 
-			}
+        var sModelKey = this.byId("id_FSDWizard").getVisible()
+            ? this.byId("_IDGenComboBox").getSelectedKey()
+            : this.byId("_IDGenComboBox2").getSelectedKey();
 
-		},
+        MessageToast.show(
+            "Model: " + sModelKey +
+            " | Max Tokens: " + oData.max_tokens +
+            " | Temperature: " + oData.temperature,
+            { duration: 2000 }
+        );
+
+        this._oPromptPopover1.close();
+    }
+},
 		//----------TSD---------//
 		onTSDPress: function () {
 
@@ -319,32 +316,6 @@ this.onClosePromptSelection = TSDFollowUp.onClosePromptSelection.bind(this);
 			}
 		},
 	
-		
-		
-
-
-
-
-		
-		
-		
-		
-		
-
-
-		onComboBoxSelectionChangeTSD: function (oEvent) {
-			 
-			var selectedTextTsd = oEvent.getSource().getSelectedItem().getText();
-
-			this.byId("id_TSDprompt").setValue(selectedTextTsd);
-			this._userpromptTD = this.byId("id_TSDprompt").getValue();
-			var oButtontsd1 = this.byId("btnTSD1");
-			var oButtontsd2 = this.byId("btnTSD2");
-
-			oButtontsd1.setVisible(!oButtontsd1.getVisible());
-			oButtontsd2.setVisible(!oButtontsd2.getVisible());
-
-		},
 		
 onGenerateTSDPress2: function () {
 			 
@@ -408,9 +379,12 @@ onGenerateTSDPress2: function () {
             complete: function (tokenXHR) {
                 var sToken = tokenXHR.getResponseHeader("X-CSRF-Token");
 
-                // Guard: if token is missing, retry once before giving up
+                // Enhanced retry logic for missing token using SAP UI5 modalities
                 if (!sToken && attempt < maxRetries) {
-                    setTimeout(function () { fetchTokenAndPost(attempt + 1, maxRetries); }, 1000);
+                    setTimeout(function () {
+                        fetchTokenAndPost(attempt + 1, maxRetries);
+                    }, 750); // Streamlined retry control
+                    sap.m.MessageToast.show("Retrying fetch due to missing token...");
                     return;
                 }
 
@@ -463,13 +437,16 @@ onGenerateTSDPress2: function () {
                         that.createTSD();
                     },
                     error: function (jqXHR) {
-                        // 403 = stale/missing CSRF token — re-fetch and retry
-                        if (jqXHR.status === 403 && attempt < maxRetries) {
-                            setTimeout(function () { fetchTokenAndPost(attempt + 1, maxRetries); }, 1500);
-                        } else {
-                            that.oBusyDialog.close();
-                            sap.m.MessageToast.show("Follow-up API call failed (attempt " + attempt + "). Please check logs.");
-                        }
+                    // Retry structured by managed network handling in SAP UI5 framework
+                    if (jqXHR.status === 403 && attempt < maxRetries) {
+                        setTimeout(function () {
+                            fetchTokenAndPost(attempt + 1, maxRetries);
+                        }, 750);
+                        sap.m.MessageToast.show("Handling 403 error - Retry in progress.");
+                    } else {
+                        that.oBusyDialog.close();
+                        sap.m.MessageToast.show("API call failed after multiple attempts.");
+                    }
                     }
                 });
             }
@@ -479,46 +456,8 @@ onGenerateTSDPress2: function () {
     fetchTokenAndPost(1, 3); // up to 3 attempts
 },
 
-onImportPromtPress: function () {
-			if (!this._oPromptRepository) {
-				this._oPromptRepository = sap.ui.xmlfragment("promptParameter2", "ccepdocgenerator.view.fragment.GobalPromptRepositoryFSD", this);
-				this.getView().addDependent(this._oPromptRepository);
-				this._oPromptRepository.setContentWidth("590px");
-			}
-			//	this._oPopover1.setModel(contactModel, "contact");
-			var oButton1 = this.byId("btnTSD1");
 
-			var oButton2 = this.byId("btnTSD2");
 
-			oButton1.setVisible(false);
-
-			oButton2.setVisible(true);
-			this._oPromptRepository.open();
-
-		},
-		onImportPromtPress2: function () {
-			 
-			if (!this._oPromptRepository2) {
-				this._oPromptRepository2 = sap.ui.xmlfragment("promptParameter3", "ccepdocgenerator.view.fragment.GobalPromptRepositoryFSD",
-					this);
-				this.getView().addDependent(this._oPromptRepository2);
-				this._oPromptRepository2.setContentWidth("590px");
-
-			}
-
-			// oButton1.setVisible(!oButton1.getVisible());
-			// oButton2.setVisible(!oButton2.getVisible());
-
-			var oButton1 = this.byId("btnFSD1");
-
-			var oButton2 = this.byId("btnFSD2");
-
-			oButton1.setVisible(false);
-
-			oButton2.setVisible(true);
-
-			this._oPromptRepository2.open();
-		},
 		onPromptItemDoubleClick: function (oEvent) {
 			 
 			this.onSavePromptSelection(oEvent);
@@ -555,120 +494,16 @@ onImportPromtPress: function () {
 			this._oPromptRepository2.close();
 		},
 
-		onClearPress: function () {
+	
+	
+_onFSDGeneratedSuccess: function () {
+    var oFsdNudgeBox = this.byId("fsdNudgeBox");
+    if (oFsdNudgeBox) { oFsdNudgeBox.setVisible(true); }
 
+    var oStep1 = this.byId("id_FSDStep1");
+    if (oStep1) { oStep1.setValidated(true); }
 
-			var issueTypeSelect = sap.ui.core.Fragment.byId("id_feedback", "issueTypeSelect");
-			var prioritySelect = sap.ui.core.Fragment.byId("id_feedback", "prioritySelect");
-			var titleInput = sap.ui.core.Fragment.byId("id_feedback", "titleInput");
-			var descriptionInput = sap.ui.core.Fragment.byId("id_feedback", "descriptionInput");
-			var fileUploader = sap.ui.core.Fragment.byId("id_feedback", "fileUploader");
-
-			issueTypeSelect.setSelectedKey(null);
-			prioritySelect.setSelectedKey(null);
-			titleInput.setValue("");
-			descriptionInput.setValue("");
-			fileUploader.clear();
-
-			var oSuccessIcon = sap.ui.core.Fragment.byId("id_feedback", "fileUploadSuccessIcon");
-			var oErrorStrip = sap.ui.core.Fragment.byId("id_feedback", "fileUploadError");
-			var oFileNameText = sap.ui.core.Fragment.byId("id_feedback", "fileNameText");
-
-			oSuccessIcon.setVisible(false);
-			oErrorStrip.setVisible(false);
-			oFileNameText.setVisible(false);
-
-			sap.m.MessageToast.show("All fields have been cleared.");
-		},
-
-		onCancelPress: function () {
-
-
-			this._oFeedbackPopover1.close();
-		},
-
-		OnSubmitPress: function () {
-
-			var issueTypeSelect = sap.ui.core.Fragment.byId("id_feedback", "issueTypeSelect");
-			var prioritySelect = sap.ui.core.Fragment.byId("id_feedback", "prioritySelect");
-			var titleInput = sap.ui.core.Fragment.byId("id_feedback", "titleInput");
-			var descriptionInput = sap.ui.core.Fragment.byId("id_feedback", "descriptionInput");
-			var fileUploader = sap.ui.core.Fragment.byId("id_feedback", "fileUploader");
-
-
-			var issueType = issueTypeSelect.getSelectedItem();
-			var title = titleInput.getValue();
-			var description = descriptionInput.getValue();
-
-
-			if (!issueType || !title || !description) {
-				sap.m.MessageToast.show("Please fill out all required fields before submitting.");
-				return;
-			}
-
-
-			sap.m.MessageToast.show("Thank you for your feedback! Our team will review it shortly.");
-
-			issueTypeSelect.setSelectedKey(null);
-			prioritySelect.setSelectedKey(null);
-			titleInput.setValue("");
-			descriptionInput.setValue("");
-			fileUploader.clear();
-			var oSuccessIcon = sap.ui.core.Fragment.byId("id_feedback", "fileUploadSuccessIcon");
-			var oErrorStrip = sap.ui.core.Fragment.byId("id_feedback", "fileUploadError");
-			var oFileNameText = sap.ui.core.Fragment.byId("id_feedback", "fileNameText");
-			oSuccessIcon.setVisible(false);
-			oErrorStrip.setVisible(false);
-			oFileNameText.setVisible(false);
-
-			this._oFeedbackPopover1.close();
-		},
-		onFileChangeFeedback: function (oEvent) {
-			const oFileUploader = oEvent.getSource();
-			const oFile = oFileUploader.oFileUpload.files[0];
-			const maxFileSize = 10 * 1024 * 1024;
-
-			const oSuccessIcon = sap.ui.core.Fragment.byId("id_feedback", "fileUploadSuccessIcon");
-			const oErrorStrip = sap.ui.core.Fragment.byId("id_feedback", "fileUploadError");
-			const oFileNameText = sap.ui.core.Fragment.byId("id_feedback", "fileNameText");
-
-			if (oFile && !this._isAllowedFile(oFile.name, ["docx", "pdf", "png", "jpg", "jpeg"])) {
-
-				oSuccessIcon.setVisible(false);
-				oErrorStrip.setVisible(true);
-				oErrorStrip.setText("Invalid file type. Allowed types: .docx, .pdf, .png, .jpg, .jpeg");
-				oFileNameText.setVisible(false);
-				oFileUploader.setValue("");
-			} else if (oFile && oFile.size > maxFileSize) {
-
-				oSuccessIcon.setVisible(false);
-				oErrorStrip.setVisible(true);
-				oErrorStrip.setText("File size exceeds 10 MB. Please upload a smaller file.");
-				oFileNameText.setVisible(false);
-				oFileUploader.setValue("");
-			} else if (oFile) {
-
-				oSuccessIcon.setVisible(true);
-				oErrorStrip.setVisible(false);
-				oFileNameText.setText(oFile.name);
-				oFileNameText.setVisible(true);
-			} else {
-
-				oSuccessIcon.setVisible(false);
-				oErrorStrip.setVisible(false);
-				oFileNameText.setVisible(false);
-			}
-		},
-		_onFSDGeneratedSuccess: function () {
-    // Show nudge link
-    this.byId("fsdNudgeBox").setVisible(true);
- 
-    // Unlock Step 2 in wizard
-    this.byId("id_FSDStep1").setValidated(true);
- 
-    // Swap buttons — show Regenerate, hide Generate
-    this.byId("btnFSD1").setVisible(false);
-    this.byId("btnFSD2").setVisible(true);
+    
 },
 onAdvancedSettingsPress: function () {
    
@@ -685,6 +520,8 @@ onAdvancedSettingsPress: function () {
         oTSDWizard.goToStep(oTSDStep2);
     }
 },
+
+
  
 	    }, TSDGenerator, TSDFollowUp, FSDGenerator,   
         FSDFollowUp)

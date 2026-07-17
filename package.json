@@ -8,15 +8,19 @@
     "sapui5"
   ],
   "main": "webapp/index.html",
-  "dependencies": {},
+  "dependencies": {
+    "docx": "^7.0.0",
+    "file-saver": "^2.0.5"
+  },
   "devDependencies": {
-    "@ui5/cli": "^4.0.33",
-    "@sap/ux-ui5-tooling": "1",
     "@sap-ux/eslint-plugin-fiori-tools": "^9.0.0",
+    "@sap/ux-ui5-tooling": "1",
+    "@ui5/cli": "^4.0.33",
     "eslint": "^9",
-    "ui5-task-zipper": "^3.4.x",
+    "mbt": "^1.2.29",
     "rimraf": "^5.0.5",
-    "mbt": "^1.2.29"
+    "ui5-task-zipper": "^3.4.x",
+    "ui5-tooling-modules": "^3.37.8"
   },
   "scripts": {
     "start": "fiori run --open \"test/flp.html#app-preview\"",

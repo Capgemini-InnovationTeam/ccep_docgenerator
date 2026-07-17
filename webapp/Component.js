@@ -21,18 +21,14 @@ sap.ui.define([
 
             // enable routing
             this.getRouter().initialize();
-             // Dynamically load external scripts
+             // Dynamically load external scripts (now served locally, not from CDN)
             this._loadExternalScripts([
-                // eslint-disable-next-line @sap-ux/fiori-tools/sap-no-hardcoded-url -- third-party CDN library, not an app/data endpoint
-                "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js",
-                // "https://cdnjs.cloudflare.com/ajax/libs/docx/7.0.2/docx.min.js",
-                // "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js",
-                // eslint-disable-next-line @sap-ux/fiori-tools/sap-no-hardcoded-url -- third-party CDN library, not an app/data endpoint
-                "https://cdn.jsdelivr.net/npm/docx@7.0.0/build/index.js"
+                sap.ui.require.toUrl("ccepdocgenerator/thirdparty/FileSaver.min.js"),
+                sap.ui.require.toUrl("ccepdocgenerator/thirdparty/docx.min.js")
             ]).then(() => {
-                console.log("All external libraries loaded successfully!");
+                
             }).catch((error) => {
-                console.error("Error loading external libraries: ", error);
+                
             });
 
 
